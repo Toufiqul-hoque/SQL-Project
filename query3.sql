@@ -1,13 +1,15 @@
 -- Name: G M Toufiqul Hoque
 -- Course: DA651.1001
--- Assignment: Project 2B
--- Description: Run query for all columns of all (payment) transactions where the total amount paidis between $2.99 and $5.99, starting from (and including) 2005-10-05 23:01:21. Return your results ordered payment ID
+-- Assignment: Project 3
+-- Description: Run query for address of customer Audrey Ray. Return the customer first and last names, the address, the city, the district, and the postal code.
+
+
+
 USE sakila;
-SELECT *
-FROM payment
-WHERE payment_date >= '2005/10/05 23:01:21' AND amount BETWEEN 2.99 AND 5.99
-ORDER BY payment_id;
-
-
-
-
+SELECT cu.first_name,cu.last_name,ad.address,ct.city, ad.district, ad.postal_code
+FROM address ad
+JOIN customer cu
+ON ad.address_id= cu.address_id
+JOIN city ct
+ON ct.city_id= ad.city_id
+WHERE first_name ='Audrey' AND last_name='Ray';

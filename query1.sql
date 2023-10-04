@@ -1,10 +1,10 @@
 -- Name: G M Toufiqul Hoque
 -- Course: DA651.1001
--- Assignment: Project 2B
--- Description: Run query for actors with first_name, last_name of all actors whose last_name starts with the letter “G”. Return your results ordered by last name.
-
+-- Assignment: Project 3
+-- Description: Run query for all the actors whose first and last name is the same as a customer’s. Return the first names and last names.
 USE sakila;
-SELECT first_name, last_name
-FROM actor
-WHERE last_name LIKE 'G%'
-ORDER BY last_name;
+SELECT a.first_name, a.last_name
+FROM actor a
+intersect
+SELECT c.first_name, c.last_name
+FROM customer c;

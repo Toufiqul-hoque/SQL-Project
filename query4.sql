@@ -1,14 +1,22 @@
 -- Name: G M Toufiqul Hoque
 -- Course: DA651.1001
--- Assignment: Project 2B
--- Description: Run query for all columns of all (rental) transactions where the rental date is between (and including) 2005-05-26 00:47:47 and 2005-05-27 23:00:25. Return your results ordered by rental ID
+-- Assignment: Project 3
+-- Description: Run query for transactions of Cynthia Young. Return the film title and rental price, ordered by film title.
 
 
 USE sakila;
-SELECT *
-FROM rental
-WHERE rental_date BETWEEN '2005-05-26 00:47:47' AND '2005-05-27 23:00:25'
-ORDER BY rental_id;
+SELECT f.title, p.amount
+FROM payment p
+INNER JOIN customer cu
+ON p.customer_id= cu.customer_id
+INNER JOIN rental r
+ON p.rental_id=r.rental_id
+INNER JOIN  inventory i
+ON r.inventory_id=i.inventory_id
+INNER JOIN film f
+ON f.film_id= i.film_id
+WHERE cu.first_name= 'Cynthia' AND cu.last_name= 'Young'
+ORDER BY f.title;
 
 
 
