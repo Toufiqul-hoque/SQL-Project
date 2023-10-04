@@ -1,15 +1,27 @@
--- Name: G M Toufiqul Hoque
--- Course: DA651.1001
--- Assignment: Project 3
--- Description: Run query for address of customer Audrey Ray. Return the customer first and last names, the address, the city, the district, and the postal code.
-
-
+-- Assignment: Project 4
+-- Description: Run query for Using INTERSECT, select the first and last names of customers who live in Argentina intersected with customers who have 
+-- rented films less than 50 (minutes) in length. Order by last name, then first name.
 
 USE sakila;
-SELECT cu.first_name,cu.last_name,ad.address,ct.city, ad.district, ad.postal_code
-FROM address ad
-JOIN customer cu
-ON ad.address_id= cu.address_id
-JOIN city ct
-ON ct.city_id= ad.city_id
-WHERE first_name ='Audrey' AND last_name='Ray';
+
+SELECT c.first_name, c.last_name
+FROM customer c
+INNER JOIN address a
+ON a.address_id= c.address_id
+INNER JOIN city ct
+ON ct.city_id = a.city_id
+INNER JOIN country con
+ON ct.country_id= con.country_id
+WHERE country= 'Argentina'
+intersect 
+SELECT c1.first_name, c1.last_name
+FROM customer c1
+INNER JOIN rental r
+ON c1.customer_id=r.customer_id
+INNER JOIN inventory i
+ON i.inventory_id=r.inventory_id
+INNER JOIN film f
+ON i.film_id=f.film_id
+WHERE f.length <50
+ORDER BY last_name, first_name;
+

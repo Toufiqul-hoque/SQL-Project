@@ -1,22 +1,33 @@
--- Name: G M Toufiqul Hoque
--- Course: DA651.1001
--- Assignment: Project 3
--- Description: Run query for transactions of Cynthia Young. Return the film title and rental price, ordered by film title.
-
+-- Assignment: Project 4
+-- Description: Run query for Select the first and last names of customers who live in Brazil EXCEPT those that live in 
+-- Boa Vista or Anpolis. Order by last name, then first name.
 
 USE sakila;
-SELECT f.title, p.amount
-FROM payment p
-INNER JOIN customer cu
-ON p.customer_id= cu.customer_id
-INNER JOIN rental r
-ON p.rental_id=r.rental_id
-INNER JOIN  inventory i
-ON r.inventory_id=i.inventory_id
-INNER JOIN film f
-ON f.film_id= i.film_id
-WHERE cu.first_name= 'Cynthia' AND cu.last_name= 'Young'
-ORDER BY f.title;
+SELECT c.first_name, c.last_name
+FROM customer c
+INNER JOIN address a
+ON a.address_id= c.address_id
+INNER JOIN city ct
+ON ct.city_id = a.city_id
+INNER JOIN country con
+ON ct.country_id= con.country_id
+WHERE country= 'Brazil'
+EXCEPT 
+SELECT c.first_name, c.last_name
+FROM customer c
+INNER JOIN address a
+ON a.address_id= c.address_id
+INNER JOIN city ct
+ON ct.city_id = a.city_id
+WHERE ct.city= 'Boa Vista' OR ct.city= 'Anpolis'
+ORDER  BY last_name, first_name;
+
+
+
+
+
+
+
 
 
 
